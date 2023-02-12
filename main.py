@@ -20,7 +20,7 @@ def download_video(singer, n):
             video = yt.streams.filter(file_extension='mp4').first()
             destination = 'Video Files'
             out_file = video.download(output_path=destination)
-        except VideoUnavailable:
+        except exceptions.VideoUnavailable:
             pass
         else:
             basePath, extension = os.path.splitext(out_file)
