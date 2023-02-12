@@ -17,8 +17,8 @@ def download_video(singer, n):
     for v in results:
         try:
             yt = YouTube('https://youtube.com/' + v['url_suffix'])
-        except exceptions.VideoUnavailable:
-            print(f'Video is unavaialable, skipping.')
+        except VideoUnavailable:
+            pass
         else:
             video = yt.streams.filter(file_extension='mp4').first()
             destination = 'Video Files'
