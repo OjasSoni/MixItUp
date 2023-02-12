@@ -1,0 +1,5 @@
+moviepy==1.0.3
+pydub==0.25.1
+pytube==12.1.2
+streamlit==1.17.0
+youtube_search==2.1.2
