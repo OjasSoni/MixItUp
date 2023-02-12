@@ -17,12 +17,12 @@ def download_video(singer, n):
     for v in results:
         try:
             yt = YouTube('https://youtube.com/' + v['url_suffix'])
-        except VideoUnavailable:
-            pass
-        else:
             video = yt.streams.filter(file_extension='mp4').first()
             destination = 'Video Files'
             out_file = video.download(output_path=destination)
+        except VideoUnavailable:
+            pass
+        else:
             basePath, extension = os.path.splitext(out_file)
     st.info('Downloaded Videos')
 
