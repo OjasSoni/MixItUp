@@ -92,10 +92,12 @@ with st.form("my_form"):
                 my_bar.progress(percent_complete + 1, text=progress_text)
             st.success('Voila! Your mashup will arrive shortly in your mailbox')
             folder = 'Video Files'
-            for filename in os.listdir(folder):
-                file_path = os.path.join(folder, filename)  
-                if os.path.isfile(file_path) or os.path.islink(file_path): 
-                    os.unlink(file_path)
+            if os.path.exists(folder):
+                for filename in os.listdir(folder):
+                    file_path = os.path.join(folder, filename)  
+                    if os.path.isfile(file_path) or os.path.islink(file_path): 
+                        os.unlink(file_path)
+                        
             if os.path.exists('mashup.mp3'):
                 os.unlink('mashup.mp3')
             
