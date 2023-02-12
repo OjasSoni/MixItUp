@@ -7,7 +7,7 @@ import zipfile
 from send_mail import send_mail
 os.environ["IMAGEIO_FFMPEG_EXE"] = "ffmpeg"
 from youtube_search import YoutubeSearch
-from pytube import YouTube, Search
+from pytube import YouTube, Search, exceptions
 from moviepy.editor import VideoFileClip, concatenate_audioclips
 import streamlit as st
 
@@ -15,11 +15,15 @@ def download_video(singer, n):
     query = singer + ' music video'
     results = YoutubeSearch(query, max_results = n).to_dict()
     for v in results:
-        yt = YouTube('https://youtube.com/' + v['url_suffix'])
-        video = yt.streams.filter(file_extension='mp4').first()
-        destination = 'Video Files'
-        out_file = video.download(output_path=destination)
-        basePath, extension = os.path.splitext(out_file)
+        try:
+            yt = YouTube('https://youtube.com/' + v['url_suffix'])
+        except exceptions.PytubeError:
+            print(f'Video is unavaialable, skipping.')
+        else:
+            video = yt.streams.filter(file_extension='mp4').first()
+            destination = 'Video Files'
+            out_file = video.download(output_path=destination)
+            basePath, extension = os.path.splitext(out_file)
     st.info('Downloaded Videos')
 
                

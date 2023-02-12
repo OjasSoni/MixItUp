@@ -3,3 +3,4 @@ PipFile
 *.mp3
 *.zip
 Video Files/
+__pycache__/
