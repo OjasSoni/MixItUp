@@ -4,6 +4,7 @@ import os
 import re
 import time
 import zipfile
+import urllib.error
 from send_mail import send_mail
 os.environ["IMAGEIO_FFMPEG_EXE"] = "ffmpeg"
 from youtube_search import YoutubeSearch
@@ -12,17 +13,21 @@ from moviepy.editor import VideoFileClip, concatenate_audioclips
 import streamlit as st
 
 def download_video(singer, n): 
+    count = 0
     query = singer + ' music video'
-    results = YoutubeSearch(query, max_results = n).to_dict()
+    results = YoutubeSearch(query, max_results = n + 20).to_dict()
     for v in results:
         try:
             yt = YouTube('https://youtube.com/' + v['url_suffix'])
             video = yt.streams.filter(file_extension='mp4').first()
             destination = 'Video Files'
             out_file = video.download(output_path=destination)
-        except exceptions.VideoUnavailable:
+        except (exceptions.VideoUnavailable, urllib.error.HTTPError):
             pass
         else:
+            count += 1
+            if count == n:
+                break
             basePath, extension = os.path.splitext(out_file)
     st.info('Downloaded Videos')
 
