@@ -4,3 +4,4 @@ PipFile
 *.zip
 Video Files/
 __pycache__/
+venv/
