@@ -76,7 +76,7 @@ def script(singer, count, duration, mail, output = 'mashup'):
     
 
 st.title('MixItUp')
-st.subheader('by Mayank Rawat')
+st.subheader('by Ojas Soni')
 
 
 
